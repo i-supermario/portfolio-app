@@ -1,7 +1,10 @@
-import { Box, Card, CardBody, CardHeader, Container, Divider, Flex, Image, Link, List, ListIcon, ListItem, Text, UnorderedList } from "@chakra-ui/react"
+import { Box, Container, Divider, Flex, Image, Link, ListItem, Text, UnorderedList } from "@chakra-ui/react"
 import Header from '../layouts/header'
 import Footer from "../layouts/footer"
 import ProfilePic from "../assets/pp.jpg"
+
+
+
 const containerStyle = {
   padding: "0 0 0 0",
   minWidth: "1423px",
