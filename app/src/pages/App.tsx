@@ -1,4 +1,4 @@
-import { Container, Spinner, Text } from "@chakra-ui/react"
+import { Container } from "@chakra-ui/react"
 import Header from '../layouts/header'
 import Footer from "../layouts/footer"
 import About from "../components/about"
