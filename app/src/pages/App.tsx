@@ -1,8 +1,9 @@
-import { Container } from "@chakra-ui/react"
+import { Container, Spinner, Text } from "@chakra-ui/react"
 import Header from '../layouts/header'
 import Footer from "../layouts/footer"
 import About from "../components/about"
 import Intro from "../components/introduction"
+import Upcoming from "../components/upcoming"
 
 
 
@@ -27,9 +28,11 @@ export default function App() {
           <br/>
           <br/>
           <About/>
+          <Upcoming/>
         </Container>
         <Footer />
       </Container>
+      
     </>
   )
 }

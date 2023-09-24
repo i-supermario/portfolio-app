@@ -16,10 +16,10 @@ export default function Footer(){
     return(
         <>
             <Flex sx={flexStyle}>
-                <Link href="https://github.com/i-supermario">
+                <Link href="https://github.com/i-supermario" isExternal>
                     github
                 </Link>
-                <Link href="https://www.linkedin.com/in/sarang-nikhare/">
+                <Link href="https://www.linkedin.com/in/sarang-nikhare/" isExternal>
                     linkedin
                 </Link>
             </Flex>
