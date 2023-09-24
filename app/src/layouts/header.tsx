@@ -21,8 +21,12 @@ export default function Header(){
             <Container sx={containerStyle}>
                 <Image src={Logo} boxSize="10" borderRadius="50"/>
                 <Flex justifyContent="flex-end" minWidth="80%" columnGap="20px">
-                    <Link to={"/"} ><Text as="b" fontSize="2xl">home</Text></Link>
-                    <Link to={"/projects"}><Text as="b" fontSize="2xl">projects</Text></Link>
+                    <Link to={"/"} >
+                        <Text as="b" fontSize="2xl">home</Text>
+                    </Link>
+                    <Link to={"/projects"}>
+                        <Text as="b" fontSize="2xl">projects</Text>
+                    </Link>
                     <Text as="b" fontSize="2xl">music</Text>
                     <Text as="b" fontSize="2xl">gallery</Text>
                 </Flex>

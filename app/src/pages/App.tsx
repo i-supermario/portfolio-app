@@ -8,7 +8,7 @@ import Intro from "../components/introduction"
 
 const containerStyle = {
   padding: "0 0 0 0",
-  minWidth: "1440px",
+  minWidth: "100vw",
   zIndex: "0",
   display: "flex",
   flexDirection: "column",

@@ -1,10 +1,11 @@
-import { Container, Text } from "@chakra-ui/react";
+import { Container, Divider, Text } from "@chakra-ui/react";
 import Footer from "../layouts/footer";
 import Header from "../layouts/header";
+import ProjectList from "../components/projectlist";
 
 const containerStyle = {
     padding: "0 0 0 0",
-    minWidth: "1440px",
+    minWidth: "100vw",
     zIndex: "0",
     display: "flex",
     flexDirection: "column",
@@ -15,7 +16,10 @@ const innerContainerStyle = {
     backgroundColor:"blackAlpha.900",
     color:"beige", 
     padding:"120px 150px 0 150px",  //padding added to position content visiblity
-    overflowX:"auto"
+    overflowX:"auto",
+    display:"flex",
+    flexDirection:"column",
+    rowGap:"5px"
 
 }
 
@@ -23,12 +27,13 @@ export default function Projects(){
     return(
         <>
             <Container sx={containerStyle}>
-                <Footer/>
+                <Header/>
                 <Container sx={innerContainerStyle}>
                     <Text as="samp" fontSize="7xl" >projects</Text>
-                    <Projects/>
+                    <Divider orientation="horizontal"/>
+                    <ProjectList/>
                 </Container>
-                <Header/>
+                <Footer/>
             </Container>
         </>
     )

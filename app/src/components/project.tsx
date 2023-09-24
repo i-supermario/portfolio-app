@@ -1,22 +1,29 @@
-import { Divider, GridItem, Image, Text } from "@chakra-ui/react";
+import { Divider, GridItem, Image, Link, Text, grid } from "@chakra-ui/react";
 
-interface propsI{
-    projectName: string
-    projectDescription: string
-    projectImageUrl?: string 
+interface ProjectI{
+    Name: string
+    Description: string
+    WebsiteUrl : string
+    ImageUrl?: string 
 }
 
-export default function Project(props:propsI){
+const gridStyle = {
+    display:"flex",
+    flexDirection:"column",
+    rowGap:"10px"
+}
+
+export default function Project(props:ProjectI){
     return(
         <>
-            <GridItem>
-                <Text as="b" fontSize="3xl">{props.projectName}</Text>
-                <Divider/>
-                <Text as="i" >Description</Text>
-                <Text as="samp" noOfLines={3}>{props.projectDescription}</Text>
+            <GridItem sx={gridStyle} >
+                <Link href={props.WebsiteUrl} textDecoration={"none"}><Text as="b" fontSize="3xl">{props.Name}</Text></Link>
+                <Divider borderColor="skyblue" />
+                <Text as="i" noOfLines={5} >Description:</Text>
+                <Text as="samp" noOfLines={10}>{props.Description}</Text>
             </GridItem>
             <GridItem>
-                <Image src={props.projectImageUrl} />
+                <Image width={"xl"} src={props.ImageUrl} />
             </GridItem>
         </>
     )
