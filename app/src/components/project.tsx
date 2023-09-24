@@ -1,4 +1,4 @@
-import { Divider, GridItem, Image, Link, Text, grid } from "@chakra-ui/react";
+import { Divider, GridItem, Image, Link, Text } from "@chakra-ui/react";
 
 interface ProjectI{
     Name: string

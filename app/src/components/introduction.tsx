@@ -1,4 +1,4 @@
-import { Avatar, Box, Flex, Image, Text } from "@chakra-ui/react"
+import { Avatar, Box, Flex, Text } from "@chakra-ui/react"
 import ProfilePic from "../assets/pp.jpg"
 
 
