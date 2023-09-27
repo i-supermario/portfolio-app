@@ -1,10 +1,10 @@
-import { Flex, Link } from "@chakra-ui/react";
+import { Container, Flex, Link, Text } from "@chakra-ui/react";
 
 const flexStyle = {
     minWidth:"100%", 
-    justifyContent:"flex-start",
-    columnGap:"20px",
-    padding: "7",
+    justifyContent:"space-between",
+    // columnGap:"20px",
+    // padding: "7",
     position:"fixed",
     bottom:"0",
     backgroundColor: "gray.800",
@@ -16,12 +16,17 @@ export default function Footer(){
     return(
         <>
             <Flex sx={flexStyle}>
-                <Link href="https://github.com/i-supermario" isExternal>
-                    github
-                </Link>
-                <Link href="https://www.linkedin.com/in/sarang-nikhare/" isExternal>
-                    linkedin
-                </Link>
+                <Container display="flex" padding="7" columnGap="10" margin="0">
+                    <Link href="https://github.com/i-supermario" isExternal>
+                        github
+                    </Link>
+                    <Link href="https://www.linkedin.com/in/sarang-nikhare/" isExternal>
+                        linkedin
+                    </Link>
+                </Container>
+                <Container margin="0" paddingTop="7">
+                    <Text as="samp" noOfLines={1}>Built using Vite, React, TypeScript, Chakra-UI</Text>
+                </Container>
             </Flex>
         </>
     )

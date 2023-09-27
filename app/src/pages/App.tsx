@@ -21,7 +21,7 @@ export default function App() {
       <Container sx={containerStyle} >
         <Header />
         <Container minWidth="100%" backgroundColor="blackAlpha.900" color="beige" 
-        padding="120px 150px 0 150px"  //padding added to position content visiblity
+        padding="120px 150px 80px 150px"  //padding added to position content visiblity
         overflowX="auto"
         >
           <Intro/>

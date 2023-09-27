@@ -16,6 +16,13 @@ export default function ProjectList(){
                     Description="A simple website about cats which allows the user to search different cat breeds and view their profile which includes information such as maintenance and adaptibility. The information about cats is provided using the CatAPI. The frontend is built using React & Chakra UI, hosted on Netlify. The backend is built using Express hosted on Render. The design for the website was given by devChallenges.io" 
                     ImageUrl="https://github.com/i-supermario/catWiki-repo/blob/main/design/desktop1.png?raw=true" 
                 />
+
+                <Project 
+                    Name="Meme Collector" 
+                    WebsiteUrl="https://meme-collector.netlify.app/"
+                    Description="A website to collect everything I find on the internet, usually memes, but at times some interesting unusual stuff as well. The frontend is built using React & Material UI, hosted on Netlify. The backend is built using Express hosted on Render. The design for the website was given by devChallenges.io" 
+                    ImageUrl="https://github.com/i-supermario/you/app/src/assets/memecollector.png?raw=true" 
+                />
             </Grid>
         </>
     )
