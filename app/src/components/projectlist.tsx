@@ -1,4 +1,4 @@
-import { Grid } from "@chakra-ui/react";
+import {  Grid } from "@chakra-ui/react";
 import Project from "./project";
 
 export default function ProjectList(){
@@ -21,7 +21,7 @@ export default function ProjectList(){
                     Name="Meme Collector" 
                     WebsiteUrl="https://meme-collector.netlify.app/"
                     Description="A website to collect everything I find on the internet, usually memes, but at times some interesting unusual stuff as well. The frontend is built using React & Material UI, hosted on Netlify. The backend is built using Express hosted on Render. The design for the website was given by devChallenges.io" 
-                    ImageUrl="https://github.com/i-supermario/you/app/src/assets/memecollector.png?raw=true" 
+                    ImageUrl="https://raw.githubusercontent.com/i-supermario/portfolio-app/main/app/src/assets/memecollector.png" 
                 />
             </Grid>
         </>
