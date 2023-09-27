@@ -24,8 +24,8 @@ export default function Footer(){
                         linkedin
                     </Link>
                 </Container>
-                <Container margin="0" paddingTop="7">
-                    <Text as="samp" noOfLines={1}>Built using Vite, React, TypeScript, Chakra-UI</Text>
+                <Container display="flex" justifyContent="right" margin="0" padding="7">
+                    <Text as="samp" width="fit-content" noOfLines={1}>Built using Vite, React, TypeScript, Chakra-UI</Text>
                 </Container>
             </Flex>
         </>
