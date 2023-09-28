@@ -4,6 +4,7 @@ import Footer from "../layouts/footer"
 import About from "../components/about"
 import Intro from "../components/introduction"
 import Upcoming from "../components/upcoming"
+import ExperienceList from "../components/experiencelist"
 
 
 
@@ -20,14 +21,16 @@ export default function App() {
     <>
       <Container sx={containerStyle} >
         <Header />
-        <Container minWidth="100%" backgroundColor="blackAlpha.900" color="beige" 
-        padding="120px 150px 80px 150px"  //padding added to position content visiblity
+        <Container display="flex" flexDirection="column" minWidth="100%" backgroundColor="blackAlpha.900" color="beige" 
+        padding="120px 150px 120px 150px"  //padding added to position content visiblity
+        rowGap="50px"
         overflowX="auto"
         >
           <Intro/>
-          <br/>
-          <br/>
+          {/* <br/>
+          <br/> */}
           <About/>
+          <ExperienceList/>
           <Upcoming/>
         </Container>
         <Footer />

@@ -1,4 +1,4 @@
-import { Divider, GridItem, Image, Link, Text } from "@chakra-ui/react";
+import { Divider, GridItem, Image, Link, Text,UnorderedList, ListItem } from "@chakra-ui/react";
 
 interface ProjectI{
     Name: string
@@ -14,13 +14,18 @@ const gridStyle = {
 }
 
 export default function Project(props:ProjectI){
+    const points = props.Description.split(";")
     return(
         <>
             <GridItem sx={gridStyle} >
                 <Link href={props.WebsiteUrl} textDecoration={"none"}><Text as="b" fontSize="3xl">{props.Name}</Text></Link>
                 <Divider borderColor="skyblue" />
-                <Text as="i" noOfLines={5} >Description:</Text>
-                <Text as="samp" noOfLines={10}>{props.Description}</Text>
+                <Text as="i">Description:</Text>
+                <UnorderedList>
+                        {
+                            points.map(point => <ListItem>{point}</ListItem>)
+                        }
+                    </UnorderedList>
             </GridItem>
             <GridItem>
                 <Image width={"xl"} src={props.ImageUrl} />

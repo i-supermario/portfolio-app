@@ -4,7 +4,7 @@ import { Box, Divider, Link, ListItem, Text, UnorderedList } from "@chakra-ui/re
 export default function About(){
     return(
         <>
-            <Box display="flex" flexDirection="column" rowGap="10px" padding="50px 0 100px 0">
+            <Box display="flex" flexDirection="column" rowGap="10px" padding="20px 0 20px 0">
             <Text as="samp" >a little about me  </Text>
             <Divider />
             <UnorderedList variant="">
