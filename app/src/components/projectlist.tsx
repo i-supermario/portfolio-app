@@ -15,7 +15,7 @@ export default function ProjectList(){
                     Name="Ebay"
                     WebsiteUrl="https://frontend-dot-csci571-hw3-403803.wl.r.appspot.com/"
                     Description="A Product Search clone of Ebay which allows the user to search for various products based on custom provided filters;A click on any product in either Results or WishList section will show you further details about that product such as product specifications, images, seller details, shipping details, and other similar products;You can also choose to add these products in your wishlist;This website was built as part of my coursework, using JavaScript, CSS, Bootstrap, React for frontend, and Express for backend."
-                    ImageUrl="./src/assets/ebaySS.png"
+                    ImageUrl="https://raw.githubusercontent.com/i-supermario/portfolio-app/main/app/src/assets/ebaySS.png"
                 />
                 <Project 
                     Name="CatWiki" 
