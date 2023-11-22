@@ -27,7 +27,7 @@ export default function Project(props:ProjectI){
                         }
                     </UnorderedList>
             </GridItem>
-            <GridItem>
+            <GridItem paddingTop="40px">
                 <Image width={"xl"} src={props.ImageUrl} />
             </GridItem>
         </>
