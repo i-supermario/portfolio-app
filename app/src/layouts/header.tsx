@@ -1,4 +1,4 @@
-import { Button, Container, Flex, Image, Menu, MenuButton, MenuItem, MenuList, Text, useMediaQuery } from "@chakra-ui/react";
+import { Container, Flex, Image, Menu, MenuButton, MenuItem, MenuList, Text, useMediaQuery } from "@chakra-ui/react";
 import Logo from "../assets/logo.jpg"
 import { Link } from "react-router-dom";
 import { HamburgerIcon } from "@chakra-ui/icons";
