@@ -28,7 +28,7 @@ export default function ProjectList(){
                     Name="Ebay Android App" 
                     WebsiteUrl=""
                     Description="A Product Search Mobile app mirrorring the Ebay website, which allows the user to search for various products based on custom provided filters;A click on any product in either Results or WishList section will show you further details about that product such as product specifications, images, seller details, shipping details, and other similar products;You can also choose to add these products in your wishlist;This app was built as part of my coursework, using Android Studio & Kotlin" 
-                    ImageUrl="" 
+                    ImageUrl="https://raw.githubusercontent.com/i-supermario/portfolio-app/main/app/src/assets/ebayAppSS.png" 
                 />
 
                 <Project 
