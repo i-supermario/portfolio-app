@@ -38,7 +38,9 @@ export default function Header(){
                             <Link to={"/projects"}>
                                 <Text as="b" fontSize="2xl">projects</Text>
                             </Link>
-                            <Text as="b" fontSize="2xl">music</Text>
+                            <Link to={"/music"}>
+                                <Text as="b" fontSize="2xl">music</Text>
+                            </Link>
                             <Text as="b" fontSize="2xl">gallery</Text>
                         </Flex>
                     </>
@@ -60,7 +62,9 @@ export default function Header(){
                                     </Link>
                                 </MenuItem>
                                 <MenuItem>
-                                    <Text as="b" fontSize="2xl">music</Text>
+                                    <Link to={"/music"}>
+                                        <Text as="b" fontSize="2xl">music</Text>
+                                    </Link>
                                 </MenuItem>
                                 <MenuItem>
                                     <Text as="b" fontSize="2xl">gallery</Text>
