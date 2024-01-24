@@ -22,8 +22,6 @@ Menu
 export default function Header(){
 
     const size = useMediaQuery('(min-width: 500px)')
-    console.log(size)
-
     return(
         <>
             <Container sx={containerStyle}>

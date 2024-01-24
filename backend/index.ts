@@ -1,8 +1,10 @@
 import fastify from 'fastify'
 import { configDotenv } from "dotenv"
+import cors from "@fastify/cors"
 
 configDotenv()
 const server = fastify()
+await server.register(cors)
 
 let spotifyAccessToeken = ""
 

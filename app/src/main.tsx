@@ -4,7 +4,7 @@ import './index.css'
 import { ChakraProvider } from '@chakra-ui/react'
 import { createBrowserRouter,RouterProvider } from "react-router-dom"
 import Projects from './pages/Projects.tsx'
-import Music from './pages/Music.tsx'
+import Music from './pages/spotify/index.tsx'
 
 const router = createBrowserRouter([
   {
@@ -13,11 +13,11 @@ const router = createBrowserRouter([
   },
   {
     path:"/projects",
-    element:<Projects/>
+    element: <Projects/>
   },
   {
     path:"/music",
-    element:<Music/>
+    element: <Music/>
   }
 ])
 
