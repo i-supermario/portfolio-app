@@ -90,7 +90,7 @@ server.get<{
   Reply: IReply
 }>("/auth/token", async (req, res) => res.status(200).send({"access_token":spotifyAccessToeken}))
 
-server.listen({ port: 8080 || process.env.PORT }, (err, address) => {
+server.listen({ port: 3000 || process.env.PORT }, (err, address) => {
   if (err) {
     console.error(err)
   }
