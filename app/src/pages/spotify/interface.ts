@@ -51,9 +51,9 @@ export interface TrackI {
     ]
   }
 
-export interface PlaybackStateI {
+  export interface PlaybackStateI {
     track_window: {
-        current_track: TrackI
+        current_track: TrackI | null
     },
     paused: boolean
 }
@@ -61,7 +61,6 @@ export interface PlaybackStateI {
 export interface UseSpotifyParams {
   loggedIn: boolean;
   setLoggedIn: React.Dispatch<React.SetStateAction<boolean>>;
-  setPaused: React.Dispatch<React.SetStateAction<boolean>>;
-  setActive: React.Dispatch<React.SetStateAction<boolean>>;
-  setTrack: React.Dispatch<React.SetStateAction<TrackI | null>>;
+  setTrackPaused: React.Dispatch<React.SetStateAction<boolean>>;
+  setCurrentTrack: React.Dispatch<React.SetStateAction<TrackI | null>>;
 }

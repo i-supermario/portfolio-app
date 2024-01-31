@@ -8,6 +8,9 @@ import SkipPreviousIcon from '@mui/icons-material/SkipPrevious';
 import SkipNextIcon from '@mui/icons-material/SkipNext';
 import Header from '../../layouts/header';
 import Footer from '../../layouts/footer';
+import { useSelector } from 'react-redux';
+import { selectDevice } from './slice/spotifylogin';
+import { selectPaused, selectTrack } from './slice/spotifytrack';
 
 const track: TrackI = {
   name: "",
@@ -24,10 +27,20 @@ const track: TrackI = {
 
 export default function Music(){
 
-  const [loggedIn, setLoggedIn] = useState<boolean>(false);
-  const [is_paused, setPaused] = useState<boolean>(false);
-  const [is_active, setActive] = useState(false);
-  const [current_track, setTrack] = useState<TrackI | null>(track);
+
+  const spotifyCurrentTrack = useSelector(selectTrack)
+  const spotifyIsPaused = useSelector(selectPaused)
+  console.log("store",spotifyCurrentTrack, spotifyIsPaused)
+
+  const deviceID = useSelector(selectDevice)
+  console.log("Store",deviceID)
+  const [loggedIn, setLoggedIn] = useState<boolean>(deviceID.length > 0);
+  const [is_paused, setTrackPaused] = useState<boolean>(spotifyIsPaused);
+  const [current_track, setCurrentTrack] = useState<TrackI | null>(track);
+
+  console.log(loggedIn)
+  console.log(current_track)
+  console.log(is_paused)
 
   const {
       createSpotifyInstance,
@@ -36,7 +49,7 @@ export default function Music(){
       toggleNext,
       togglePause,
       togglePrevious
-  } = useSpotify({loggedIn, setLoggedIn, setPaused, setActive, setTrack});
+  } = useSpotify({loggedIn, setLoggedIn,setTrackPaused, setCurrentTrack});
 
 
   
@@ -86,7 +99,7 @@ export default function Music(){
                         <SkipPreviousIcon/>
                     </Button>
                     <Button colorScheme='blue' onClick={()=>{
-                      console.log(is_paused)
+                      console.log("Play/Pause",is_paused)
                       if(is_paused) togglePlay()
                       else togglePause()
                     }}>

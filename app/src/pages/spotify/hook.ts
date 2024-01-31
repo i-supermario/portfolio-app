@@ -1,29 +1,36 @@
 import { useEffect, useState } from 'react';
 import { TrackI, WindowWithSpotifyI, PlayerI, PlaybackStateI, SpotifyHook,UseSpotifyParams  } from "./interface"
-
+import { useDispatch, useSelector } from 'react-redux';
+import { useAppDispatch } from '../../redux/hooks';
+import { selectDevice, selectPlayer, setDeviceID, setPlayer } from './slice/spotifylogin';
+import { AppDispatch } from '../../redux/store';
+import { setPaused, setTrack } from './slice/spotifytrack';
 
 
 
 export const useSpotify = ({
     loggedIn,
     setLoggedIn,
-    setPaused,
-    setActive,
-    setTrack,
+    setTrackPaused,
+    setCurrentTrack
 }: UseSpotifyParams): SpotifyHook => {
 
-    console.log("called")
+    const dispatch = useDispatch<AppDispatch>()
 
 
 
-    const [player, setPlayer] = useState<PlayerI | null>(null);
+    // const [player, setPlayer] = useState<PlayerI | null>(null);
     const [token, setToken] = useState<string>("");
-    const [deviceID, setDeviceID] = useState<string>("");
+    // const [deviceID, setDeviceID] = useState<string>("");
 
-    console.log(deviceID)
+    const deviceID: string = useSelector(selectDevice)
+    const player: PlayerI | null = useSelector(selectPlayer)
+    // console.log("device id", deviceID)
+    // console.log("token", token)
 
 
     useEffect(() => {  
+        console.log("Getting new token")
         if(token.length==0){
           fetch("http://localhost:8080/auth/token")
           .then(res => res.json())
@@ -34,7 +41,7 @@ export const useSpotify = ({
           .catch(e => console.log(e))
         }
     
-      }, [token]);
+      }, [token, loggedIn]);
 
 
     const createSpotifyInstance = () => {
@@ -59,7 +66,7 @@ export const useSpotify = ({
                 newPlayer?.addListener('ready', ({ device_id }: { device_id: string }) => {
                     console.log('Ready with Device ID', device_id);
                     transferPlayback(device_id)
-                    setDeviceID(device_id);
+                    dispatch(setDeviceID(device_id))
                 });
 
                 newPlayer?.addListener('not_ready', ({ device_id }) => {
@@ -67,25 +74,19 @@ export const useSpotify = ({
                 });
 
                 newPlayer?.addListener('player_state_changed', ((state: PlaybackStateI) => {
-                    if (!state) {
-                        return;
-                    }
+                    
+                    console.log("Track",state)
+                    setCurrentTrack(state.track_window.current_track)
+                    dispatch(setTrack(state.track_window.current_track as TrackI))
+                    dispatch(setPaused(state.paused))
 
-                    setTrack(state.track_window.current_track);
-                    setPaused(state.paused);
+                    newPlayer.getCurrentState().then( state => console.log(state)).catch(e => console.log(e))
 
-                    newPlayer?.getCurrentState()
-                        .then((state: boolean) => {
-                            (!state) ? setActive(false) : setActive(true);
-                        })
-                        .catch(e => console.log(e));
                 }));
 
                 newPlayer.addListener('autoplay_failed', () => {
                     console.log('Autoplay is not allowed by the browser autoplay rules');
                 });
-
-                setPlayer(newPlayer);
 
                 newPlayer?.connect()
                     .then(success => {
@@ -94,6 +95,7 @@ export const useSpotify = ({
                         console.log(loggedIn)
                     })
                     .catch(e => console.log(e));
+                dispatch(setPlayer(newPlayer))
             };
         }
     };
@@ -114,7 +116,10 @@ export const useSpotify = ({
         console.log(URL)
     
         fetch(URL,config)
-        .then(() => setPaused(false))
+        .then(() => {
+            setTrackPaused(false)
+            dispatch(setPaused(false))
+        })
         .catch(e => console.log(e))
     
     }
@@ -134,7 +139,10 @@ export const useSpotify = ({
         console.log(URL)
     
         fetch(URL,config)
-        .then(() =>setPaused(true))
+        .then(() =>{
+            setTrackPaused(true)
+            dispatch(setPaused(true))
+        })
         .catch(e => console.log(e))
     
     }
@@ -208,6 +216,8 @@ export const useSpotify = ({
 
     const logout = () => {
         setLoggedIn(false)
+        dispatch(setDeviceID(""))
+        setToken("")
         player?.disconnect()
     };
 
