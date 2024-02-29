@@ -62,7 +62,7 @@ export default function Music(){
             {
               !loggedIn ? 
               <Button colorScheme='purple' onClick={()=>createSpotifyInstance()}>
-                <a href='http://localhost:8080/auth/login' target="_blank">Login</a>
+                <a href='https://portfolio-backend-yb78.onrender.com/auth/login' target="_blank">Login</a>
               </Button>
               :
               <>

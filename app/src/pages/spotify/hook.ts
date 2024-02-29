@@ -31,7 +31,7 @@ export const useSpotify = ({
     useEffect(() => {  
         console.log("Getting new token")
         if(token.length==0){
-          fetch("http://localhost:8080/auth/token")
+          fetch("https://portfolio-backend-yb78.onrender.com/auth/token")
           .then(res => res.json())
           .then((data: { access_token: string } ) => {
             console.log(data.access_token)

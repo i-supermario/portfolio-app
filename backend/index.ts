@@ -39,7 +39,7 @@ server.get('/auth/login', (req, res)=> {
     response_type: "code",
     client_id: process.env.SPOTIFY_CLIENT_ID as string,
     scope: scope,
-    redirect_uri: "http://localhost:8080/auth/callback",
+    redirect_uri: "https://portfolio-backend-yb78.onrender.com/auth/callback",
     state: state
   })
 
@@ -66,7 +66,7 @@ server.get<{
     },
     body: new URLSearchParams({
       code: code,
-      redirect_uri: 'http://localhost:8080/auth/callback',
+      redirect_uri: 'https://portfolio-backend-yb78.onrender.com/auth/callback',
       grant_type: 'authorization_code',
     }),
   };
