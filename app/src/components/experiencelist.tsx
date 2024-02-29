@@ -12,7 +12,7 @@ export default function ExperienceList(){
                         position="Software Development Intern"
                         from="June 2022"
                         to="Nov 2022"
-                        description="Development, maintenance, hosting and deployment of 3+ projects;Built various websites using React.js & Next.js;Styled using Chakra-UI, Tailwind CSS & Material-UI;Deployed website on Firebase.Web-hosting for 2 projects" 
+                        description="Development, maintenance, hosting and deployment of 3+ projects;Built various websites using React.js & Next.js;Styled using Chakra-UI, Tailwind CSS & Material-UI;Deployed website on Firebase" 
                     />
                     <Experience 
                         CompanyName="Whirlpool Corporation"
