@@ -1,7 +1,6 @@
 import { useEffect, useState } from 'react';
 import { TrackI, WindowWithSpotifyI, PlayerI, PlaybackStateI, SpotifyHook,UseSpotifyParams  } from "./interface"
 import { useDispatch, useSelector } from 'react-redux';
-import { useAppDispatch } from '../../redux/hooks';
 import { selectDevice, selectPlayer, setDeviceID, setPlayer } from './slice/spotifylogin';
 import { AppDispatch } from '../../redux/store';
 import { setPaused, setTrack } from './slice/spotifytrack';

@@ -1,5 +1,5 @@
 import { PayloadAction, createSlice } from "@reduxjs/toolkit";
-import { PlaybackStateI, TrackI } from "../interface";
+import { TrackI } from "../interface";
 import { RootState } from "../../../redux/store";
 
 const track: TrackI = {

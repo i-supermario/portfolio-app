@@ -1,5 +1,5 @@
 import { Box, Button, Container, Flex, Image, Text } from '@chakra-ui/react';
-import React, { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { useSpotify } from './hook';
 import { TrackI } from "./interface"
 import PlayArrowIcon from '@mui/icons-material/PlayArrow';
