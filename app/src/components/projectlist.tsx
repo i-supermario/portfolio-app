@@ -21,7 +21,7 @@ export default function ProjectList(){
                     Name="CatWiki" 
                     WebsiteUrl="https://catwiki-app.netlify.app/"
                     Description="A simple website about cats which allows the user to search different cat breeds and view their profile which includes information such as maintenance and adaptibility;The information about cats is provided using the CatAPI;The frontend is built using React & Chakra UI, hosted on Netlify;The backend is built using Express hosted on Render;The design for the website was given by devChallenges.io" 
-                    ImageUrl="https://github.com/i-supermario/catWiki-repo/blob/main/design/desktop1.png?raw=true" 
+                    ImageUrl="https://raw.githubusercontent.com/i-supermario/catWiki-repo/main/design/desktop1.png" 
                 />
 
                 <Project 
@@ -38,7 +38,12 @@ export default function ProjectList(){
                     ImageUrl="https://raw.githubusercontent.com/i-supermario/portfolio-app/main/app/src/assets/memecollector.png" 
                 />
 
-                
+                <Project
+                    Name="To-Do App"
+                    WebsiteUrl=""
+                    Description="A challenge I gave myself to complete the classic To-Do List app within 4 hours; The app allows you to add and delete new to-do(s) as well as search through these;Built using Next.js and Material-UI"
+                    ImageUrl="https://raw.githubusercontent.com/i-supermario/portfolio-app/main/app/src/assets/toDo.png"
+                />
             </Grid>
         </>
     )

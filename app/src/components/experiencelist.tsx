@@ -1,4 +1,4 @@
-import { Accordion, Container, Text } from "@chakra-ui/react";
+import { Accordion, Container, Divider, Text } from "@chakra-ui/react";
 import Experience from "./experience";
 
 export default function ExperienceList(){
@@ -6,6 +6,7 @@ export default function ExperienceList(){
         <>
             <Container display="flex" flexDirection="column" rowGap="10px" padding="0" margin="0">
                 <Text as="em" fontSize="2xl" >Experiences</Text>
+                <Divider minWidth="650px"/>
                 <Accordion minWidth="650px" allowToggle>
                     <Experience 
                         CompanyName="Reach Technologies"

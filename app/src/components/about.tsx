@@ -12,7 +12,7 @@ export default function About(){
                 <Text as="samp" > Currently pursuing my MS in Computer Science at University of Southern California </Text>
               </ListItem>
               <ListItem>
-                <Text as="samp" > Open for internship opportunities, you can find my resume <Link href="https://drive.google.com/file/d/1jGaHFFQQcvXQXZ8wMSQncQZ8gXjjBrlX/view?usp=sharing" color="yellow.600" isExternal >here</Link> </Text>
+                <Text as="samp" > Open for internship opportunities, you can find my resume <Link href="https://drive.google.com/file/d/1QswZ9rg8cbzlQeRzdx4_88w4E851V2bo/view?usp=sharing" color="yellow.600" isExternal >here</Link> </Text>
               </ListItem>
             </UnorderedList>
           </Box>

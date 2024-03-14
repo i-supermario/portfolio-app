@@ -4,24 +4,52 @@ import cors from "@fastify/cors";
 configDotenv();
 const server = fastify();
 await server.register(cors);
-let spotifyAccessToeken = "";
+let spotifyAccessToken = "";
+let refreshToken = "";
 server.get('/', async (request, reply) => {
     reply.send({ "Message": "Connected to backend" });
 });
-server.get('/auth/login', (req, res) => {
+server.get('/auth/login', async (req, res) => {
     console.log("login");
     let scope = "streaming \
   user-read-email \
   user-read-private";
     let state = "randomString";
-    let authQueryParams = new URLSearchParams({
-        response_type: "code",
-        client_id: process.env.SPOTIFY_CLIENT_ID,
-        scope: scope,
-        redirect_uri: "http://localhost:8080/auth/callback",
-        state: state
-    });
-    res.redirect("https://accounts.spotify.com/authorize/?" + authQueryParams.toString());
+    if (refreshToken) {
+        console.log("Using refresh token");
+        const url = "https://accounts.spotify.com/api/token";
+        let authOptions = {
+            method: "POST",
+            headers: {
+                'content-type': 'application/x-www-form-urlencoded',
+                'Authorization': 'Basic ' + btoa(`${process.env.SPOTIFY_CLIENT_ID}:${process.env.SPOTIFY_CLIENT_SECRET}`),
+            },
+            body: new URLSearchParams({
+                grant_type: 'refresh_token',
+                refresh_token: refreshToken
+            }),
+            json: true
+        };
+        const response = await fetch(url, authOptions);
+        const responseJson = await response.json();
+        spotifyAccessToken = responseJson.access_token;
+        if (response.status == 200) {
+            res.status(200).send({ "success": true, access_token: spotifyAccessToken, refresh_token: refreshToken }).redirect("/");
+        }
+        res.send(400).send({ "success": false });
+    }
+    else {
+        console.log("Using authorization");
+        let authQueryParams = new URLSearchParams({
+            response_type: "code",
+            client_id: process.env.SPOTIFY_CLIENT_ID,
+            scope: scope,
+            redirect_uri: "https://portfolio-backend-yb78.onrender.com/auth/callback",
+            // redirect_uri: 'http://localhost:8080/auth/callback',
+            state: state
+        });
+        res.redirect("https://accounts.spotify.com/authorize/?" + authQueryParams.toString());
+    }
 });
 server.get('/auth/callback', async (req, res) => {
     console.log("callback");
@@ -35,7 +63,8 @@ server.get('/auth/callback', async (req, res) => {
         },
         body: new URLSearchParams({
             code: code,
-            redirect_uri: 'http://localhost:8080/auth/callback',
+            redirect_uri: 'https://portfolio-backend-yb78.onrender.com/auth/callback',
+            // redirect_uri: 'http://localhost:8080/auth/callback',
             grant_type: 'authorization_code',
         }),
     };
@@ -43,9 +72,10 @@ server.get('/auth/callback', async (req, res) => {
         const response = await fetch('https://accounts.spotify.com/api/token', authOptions);
         if (response.ok) {
             const body = await response.json();
-            spotifyAccessToeken = body.access_token;
-            console.log(spotifyAccessToeken);
-            res.status(200).send({ "success": true }).redirect("/");
+            spotifyAccessToken = body.access_token;
+            refreshToken = body.refresh_token;
+            console.log(spotifyAccessToken);
+            res.status(200).send({ "success": true, access_token: spotifyAccessToken, refresh_token: refreshToken }).redirect("/");
         }
         res.status(400).send({ "error": "Try Catch Exception" });
     }
@@ -54,8 +84,8 @@ server.get('/auth/callback', async (req, res) => {
         res.status(400).send({ "error": error });
     }
 });
-server.get("/auth/token", async (req, res) => res.status(200).send({ "access_token": spotifyAccessToeken }));
-server.listen({ port: 8080 || process.env.PORT }, (err, address) => {
+server.get("/auth/token", async (req, res) => res.status(200).send({ "access_token": spotifyAccessToken }));
+server.listen(10000, '0.0.0.0', (err, address) => {
     if (err) {
         console.error(err);
     }

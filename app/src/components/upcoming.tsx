@@ -7,9 +7,6 @@ export default function Upcoming(){
                 <Text color='crimson' as="i" fontSize="lg">Upcoming things for the site</Text>
                 <OrderedList paddingBottom="20px">
                     <ListItem>
-                        a page for all my music
-                    </ListItem>
-                    <ListItem>
                         a page for all the photographs i have clicked
                     </ListItem>
                     <ListItem>
