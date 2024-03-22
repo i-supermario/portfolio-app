@@ -109,7 +109,6 @@ export const useSpotify = ({
         fetch(URL,config)
         .then(() => {
             setTrackPaused(false)
-            // dispatch(setPaused(false))
         })
         .catch(e => console.log(e))
     
@@ -132,7 +131,6 @@ export const useSpotify = ({
         fetch(URL,config)
         .then(() =>{
             setTrackPaused(true)
-            // dispatch(setPaused(true))
         })
         .catch(e => console.log(e))
     
@@ -152,7 +150,10 @@ export const useSpotify = ({
         console.log(URL)
     
         fetch(URL,config)
-        .then(res => console.log(res))
+        .then(res => {
+            console.log(res)
+            setTrackPaused(false)
+        })
         .catch(e => console.log(e))
     
     }
@@ -171,7 +172,10 @@ export const useSpotify = ({
         console.log(URL)
     
         fetch(URL,config)
-        .then(res => console.log(res))
+        .then(res => {
+            console.log(res)
+            setTrackPaused(false)
+        })
         .catch(e => console.log(e))
         
     
@@ -202,7 +206,9 @@ export const useSpotify = ({
 
         fetch(URL,config)
         .then(() => console.log("Playback transferred to current device"))
-        .then(() => setTrackPaused(false))
+        .then(() => {
+            togglePlay()
+        })
         .catch(e => console.log(e))
 
     }
