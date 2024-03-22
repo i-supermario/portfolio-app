@@ -10,8 +10,8 @@ import Header from '../../layouts/header';
 import Footer from '../../layouts/footer';
 
 
-const ENV = 'DEV'
-const URL = ENV == 'DEV' ? "http://localhost:8080" : "https://portfolio-backend-yb78.onrender.com"
+const URL = "https://portfolio-backend-yb78.onrender.com"
+// const URL = "http://localhost:8080"
 
 const track: TrackI = {
   name: "",
