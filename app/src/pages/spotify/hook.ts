@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { TrackI, WindowWithSpotifyI, PlayerI, PlaybackStateI, SpotifyHook,UseSpotifyParams  } from "./interface"
+import { WindowWithSpotifyI, PlayerI, PlaybackStateI, SpotifyHook,UseSpotifyParams  } from "./interface"
 
 const ENV = 'DEV'
 const URL = ENV == 'DEV' ? "http://localhost:8080" : "https://portfolio-backend-yb78.onrender.com"
@@ -11,13 +11,9 @@ export const useSpotify = ({
     setCurrentTrack
 }: UseSpotifyParams): SpotifyHook => {
 
-    // const dispatch = useDispatch<AppDispatch>()
     const [token, setToken] = useState<string>("");
     const [player,setPlayer] = useState<PlayerI | null>(null)
     const [deviceID,setDeviceID] = useState<string>("")
-
-    
-
 
 
     // console.log("token:",token)
@@ -36,15 +32,11 @@ export const useSpotify = ({
     
       }, [loggedIn]);
 
-    //   useEffect(()=>{
-    //     setPlayer(player)
-    //   },[player])
+
 
 
     const createSpotifyInstance = () => {
-        // if(deviceID){
-        //     return
-        // }
+
         const script = document.createElement("script");
         script.src = "https://sdk.scdn.co/spotify-player.js";
         script.async = true;

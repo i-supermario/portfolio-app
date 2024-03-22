@@ -28,7 +28,7 @@ const track: TrackI = {
 
 export default function Music(){
 
-  const [current_track, setCurrentTrack] = useState<TrackI | null>(null);
+  const [current_track, setCurrentTrack] = useState<TrackI | null>(track);
   const [loggedIn, setLoggedIn] = useState<boolean>(false);
   const [is_paused, setTrackPaused] = useState<boolean>(true);
 
