@@ -1,5 +1,5 @@
 import { Box, Button, Container, Flex, Image, Text } from '@chakra-ui/react';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useSpotify } from './hook';
 import { TrackI } from "./interface"
 import PlayArrowIcon from '@mui/icons-material/PlayArrow';
@@ -8,9 +8,10 @@ import SkipPreviousIcon from '@mui/icons-material/SkipPrevious';
 import SkipNextIcon from '@mui/icons-material/SkipNext';
 import Header from '../../layouts/header';
 import Footer from '../../layouts/footer';
-import { useSelector } from 'react-redux';
-import { selectDevice } from './slice/spotifylogin';
-import { selectPaused, selectTrack } from './slice/spotifytrack';
+
+
+const ENV = 'DEV'
+const URL = ENV == 'DEV' ? "http://localhost:8080" : "https://portfolio-backend-yb78.onrender.com"
 
 const track: TrackI = {
   name: "",
@@ -27,20 +28,14 @@ const track: TrackI = {
 
 export default function Music(){
 
+  const [current_track, setCurrentTrack] = useState<TrackI | null>(null);
+  const [loggedIn, setLoggedIn] = useState<boolean>(false);
+  const [is_paused, setTrackPaused] = useState<boolean>(true);
 
-  const spotifyCurrentTrack = useSelector(selectTrack)
-  const spotifyIsPaused = useSelector(selectPaused)
-  console.log("store",spotifyCurrentTrack, spotifyIsPaused)
-
-  const deviceID = useSelector(selectDevice)
-  console.log("Store",deviceID)
-  const [loggedIn, setLoggedIn] = useState<boolean>(deviceID.length > 0);
-  const [is_paused, setTrackPaused] = useState<boolean>(spotifyIsPaused);
-  const [current_track, setCurrentTrack] = useState<TrackI | null>(track);
-
-  console.log(loggedIn)
-  console.log(current_track)
-  console.log(is_paused)
+  // console.log("Device ID:",deviceID)
+  console.log("LoggedIn:",loggedIn)
+  console.log("Current Track:",current_track)
+  console.log("Paused:",is_paused)
 
   const {
       createSpotifyInstance,
@@ -48,10 +43,14 @@ export default function Music(){
       logout,
       toggleNext,
       togglePause,
-      togglePrevious
+      togglePrevious,
   } = useSpotify({loggedIn, setLoggedIn,setTrackPaused, setCurrentTrack});
 
 
+
+  useEffect(()=>{
+    return () => logout()
+  },[])
   
 
 
@@ -62,7 +61,7 @@ export default function Music(){
             {
               !loggedIn ? 
               <Button colorScheme='purple' onClick={()=>createSpotifyInstance()}>
-                <a href='https://portfolio-backend-yb78.onrender.com/auth/login' target="_blank">Login</a>
+                <a href={`${URL}/auth/login`} target="_blank">Login</a>
               </Button>
               :
               <>
@@ -71,7 +70,6 @@ export default function Music(){
                   flexDirection="column" 
                   alignItems="center" 
                   justifyContent="center" 
-                  // backgroundColor="blackAlpha.800"
                   padding="20px"
                   rounded="10px"
                 >

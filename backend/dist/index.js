@@ -1,11 +1,18 @@
+var _a;
 import fastify from 'fastify';
 import { configDotenv } from "dotenv";
 import cors from "@fastify/cors";
+import { getAccessToken, setAccessToken } from './utils.js';
 configDotenv();
-const server = fastify();
+const server = fastify({
+    logger: true
+});
 await server.register(cors);
-let spotifyAccessToken = "";
 let refreshToken = "";
+// extra space added when setting NODE_ENV 
+const ENV = (_a = process.env.NODE_ENV) === null || _a === void 0 ? void 0 : _a.trim();
+const PORT = ENV === `development` ? 8080 : 10000;
+const HOST = ENV === `development` ? 'localhost' : '0.0.0.0';
 server.get('/', async (request, reply) => {
     reply.send({ "Message": "Connected to backend" });
 });
@@ -16,7 +23,6 @@ server.get('/auth/login', async (req, res) => {
   user-read-private";
     let state = "randomString";
     if (refreshToken) {
-        console.log("Using refresh token");
         const url = "https://accounts.spotify.com/api/token";
         let authOptions = {
             method: "POST",
@@ -32,20 +38,18 @@ server.get('/auth/login', async (req, res) => {
         };
         const response = await fetch(url, authOptions);
         const responseJson = await response.json();
-        spotifyAccessToken = responseJson.access_token;
+        setAccessToken(responseJson.access_token);
         if (response.status == 200) {
-            res.status(200).send({ "success": true, access_token: spotifyAccessToken, refresh_token: refreshToken }).redirect("/");
+            res.status(200).send({ "success": true }).redirect("http://localhost:5173/music");
         }
         res.send(400).send({ "success": false });
     }
     else {
-        console.log("Using authorization");
         let authQueryParams = new URLSearchParams({
             response_type: "code",
             client_id: process.env.SPOTIFY_CLIENT_ID,
             scope: scope,
-            redirect_uri: "https://portfolio-backend-yb78.onrender.com/auth/callback",
-            // redirect_uri: 'http://localhost:8080/auth/callback',
+            redirect_uri: ENV == 'development' ? `http://localhost:${PORT}/auth/callback` : "https://portfolio-backend-yb78.onrender.com/auth/callback",
             state: state
         });
         res.redirect("https://accounts.spotify.com/authorize/?" + authQueryParams.toString());
@@ -63,8 +67,7 @@ server.get('/auth/callback', async (req, res) => {
         },
         body: new URLSearchParams({
             code: code,
-            redirect_uri: 'https://portfolio-backend-yb78.onrender.com/auth/callback',
-            // redirect_uri: 'http://localhost:8080/auth/callback',
+            redirect_uri: ENV == 'development' ? `http://localhost:${PORT}/auth/callback` : "https://portfolio-backend-yb78.onrender.com/auth/callback",
             grant_type: 'authorization_code',
         }),
     };
@@ -72,10 +75,9 @@ server.get('/auth/callback', async (req, res) => {
         const response = await fetch('https://accounts.spotify.com/api/token', authOptions);
         if (response.ok) {
             const body = await response.json();
-            spotifyAccessToken = body.access_token;
+            setAccessToken(body.access_token);
             refreshToken = body.refresh_token;
-            console.log(spotifyAccessToken);
-            res.status(200).send({ "success": true, access_token: spotifyAccessToken, refresh_token: refreshToken }).redirect("/");
+            res.status(200).send({ "success": true }).redirect("http://localhost:5173/music");
         }
         res.status(400).send({ "error": "Try Catch Exception" });
     }
@@ -84,8 +86,11 @@ server.get('/auth/callback', async (req, res) => {
         res.status(400).send({ "error": error });
     }
 });
-server.get("/auth/token", async (req, res) => res.status(200).send({ "access_token": spotifyAccessToken }));
-server.listen(10000, '0.0.0.0', (err, address) => {
+server.get("/auth/token", async (req, res) => res.status(200).send({ "access_token": getAccessToken() }));
+server.listen({
+    port: PORT,
+    host: HOST
+}, (err, address) => {
     if (err) {
         console.error(err);
     }

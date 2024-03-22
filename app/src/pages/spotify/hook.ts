@@ -1,11 +1,8 @@
 import { useEffect, useState } from 'react';
 import { TrackI, WindowWithSpotifyI, PlayerI, PlaybackStateI, SpotifyHook,UseSpotifyParams  } from "./interface"
-import { useDispatch, useSelector } from 'react-redux';
-import { selectDevice, selectPlayer, setDeviceID, setPlayer } from './slice/spotifylogin';
-import { AppDispatch } from '../../redux/store';
-import { setPaused, setTrack } from './slice/spotifytrack';
 
-
+const ENV = 'DEV'
+const URL = ENV == 'DEV' ? "http://localhost:8080" : "https://portfolio-backend-yb78.onrender.com"
 
 export const useSpotify = ({
     loggedIn,
@@ -14,36 +11,40 @@ export const useSpotify = ({
     setCurrentTrack
 }: UseSpotifyParams): SpotifyHook => {
 
-    const dispatch = useDispatch<AppDispatch>()
-
-
-
-    // const [player, setPlayer] = useState<PlayerI | null>(null);
+    // const dispatch = useDispatch<AppDispatch>()
     const [token, setToken] = useState<string>("");
-    // const [deviceID, setDeviceID] = useState<string>("");
+    const [player,setPlayer] = useState<PlayerI | null>(null)
+    const [deviceID,setDeviceID] = useState<string>("")
 
-    const deviceID: string = useSelector(selectDevice)
-    const player: PlayerI | null = useSelector(selectPlayer)
-    // console.log("device id", deviceID)
-    // console.log("token", token)
+    
+
+
+
+    // console.log("token:",token)
 
 
     useEffect(() => {  
         console.log("Getting new token")
-        if(token.length==0){
-          fetch("https://portfolio-backend-yb78.onrender.com/auth/token")
+        if(!token){
+          fetch(`${URL}/auth/token`)
           .then(res => res.json())
           .then((data: { access_token: string } ) => {
-            console.log(data.access_token)
             setToken(data.access_token)
           })
           .catch(e => console.log(e))
         }
     
-      }, [token, loggedIn]);
+      }, [loggedIn]);
+
+    //   useEffect(()=>{
+    //     setPlayer(player)
+    //   },[player])
 
 
     const createSpotifyInstance = () => {
+        // if(deviceID){
+        //     return
+        // }
         const script = document.createElement("script");
         script.src = "https://sdk.scdn.co/spotify-player.js";
         script.async = true;
@@ -55,7 +56,7 @@ export const useSpotify = ({
         if (!loggedIn && windowWithSpotify) {
             windowWithSpotify.onSpotifyWebPlaybackSDKReady = () => {
                 const newPlayer: PlayerI = new windowWithSpotify.Spotify.Player({
-                    name: 'Web Playback SDK',
+                    name: 'Spotify@Sarang',
                     getOAuthToken: (cb) => {
                         cb(token);
                     },
@@ -65,26 +66,24 @@ export const useSpotify = ({
                 newPlayer?.addListener('ready', ({ device_id }: { device_id: string }) => {
                     console.log('Ready with Device ID', device_id);
                     transferPlayback(device_id)
-                    dispatch(setDeviceID(device_id))
-                });
+                    // dispatch(setDeviceID(device_id))
+                    setDeviceID(device_id)
 
-                newPlayer?.addListener('not_ready', ({ device_id }) => {
-                    console.log('Device ID has gone offline', device_id);
                 });
 
                 newPlayer?.addListener('player_state_changed', ((state: PlaybackStateI) => {
                     
-                    console.log("Track",state)
                     setCurrentTrack(state.track_window.current_track)
-                    dispatch(setTrack(state.track_window.current_track as TrackI))
-                    dispatch(setPaused(state.paused))
+                    // dispatch(setTrack(state.track_window.current_track as TrackI))
+                    // dispatch(setPaused(state.paused))
 
-                    newPlayer.getCurrentState().then( state => console.log(state)).catch(e => console.log(e))
+                    newPlayer.getCurrentState().then( state => console.log("Current State:",state)).catch(e => console.log(e))
 
                 }));
 
                 newPlayer.addListener('autoplay_failed', () => {
                     console.log('Autoplay is not allowed by the browser autoplay rules');
+                    togglePlay()
                 });
 
                 newPlayer?.connect()
@@ -94,7 +93,8 @@ export const useSpotify = ({
                         console.log(loggedIn)
                     })
                     .catch(e => console.log(e));
-                dispatch(setPlayer(newPlayer))
+                // dispatch(setPlayer(newPlayer))
+                setPlayer(newPlayer)
             };
         }
     };
@@ -117,7 +117,7 @@ export const useSpotify = ({
         fetch(URL,config)
         .then(() => {
             setTrackPaused(false)
-            dispatch(setPaused(false))
+            // dispatch(setPaused(false))
         })
         .catch(e => console.log(e))
     
@@ -140,7 +140,7 @@ export const useSpotify = ({
         fetch(URL,config)
         .then(() =>{
             setTrackPaused(true)
-            dispatch(setPaused(true))
+            // dispatch(setPaused(true))
         })
         .catch(e => console.log(e))
     
@@ -181,6 +181,7 @@ export const useSpotify = ({
         fetch(URL,config)
         .then(res => console.log(res))
         .catch(e => console.log(e))
+        
     
     }
 
@@ -209,13 +210,15 @@ export const useSpotify = ({
 
         fetch(URL,config)
         .then(() => console.log("Playback transferred to current device"))
+        .then(() => setTrackPaused(false))
         .catch(e => console.log(e))
 
     }
 
     const logout = () => {
         setLoggedIn(false)
-        dispatch(setDeviceID(""))
+        togglePause()
+        setDeviceID
         setToken("")
         player?.disconnect()
     };

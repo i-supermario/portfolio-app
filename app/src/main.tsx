@@ -5,9 +5,6 @@ import { ChakraProvider } from '@chakra-ui/react'
 import { createBrowserRouter,RouterProvider } from "react-router-dom"
 import Projects from './pages/Projects.tsx'
 import Music from './pages/spotify/index.tsx'
-import { Provider } from 'react-redux'
-import { PersistGate } from 'redux-persist/integration/react'
-import { persistor, store } from './redux/store.tsx'
 
 const router = createBrowserRouter([
   {
@@ -27,12 +24,8 @@ const router = createBrowserRouter([
 
 ReactDOM.createRoot(document.getElementById('root')!).render(
   // <React.StrictMode>
-    <Provider store={store}>
-      <PersistGate loading={null} persistor={persistor} >
         <ChakraProvider>
           <RouterProvider router={router} />
         </ChakraProvider>
-      </PersistGate>
-    </Provider>
   // </React.StrictMode>,
 )

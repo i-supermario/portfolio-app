@@ -5,6 +5,8 @@ export interface PlayerI {
     activateElement: () => Promise<void>
     addListener: (event: string, callback: (data: any) => void) => void
     getCurrentState: () => Promise<boolean>
+    nextTrack: () => Promise<void>
+    previousTrack: () => Promise<void>
   }
   
 export interface WindowWithSpotifyI extends Window {
@@ -28,7 +30,7 @@ export interface SpotifyHook {
     togglePause: () => void
     togglePrevious: () => void
     toggleNext: () => void
-    createSpotifyInstance: () => void;
+    createSpotifyInstance: () => void
     logout: () => void;
 }
 
@@ -51,7 +53,7 @@ export interface TrackI {
     ]
   }
 
-  export interface PlaybackStateI {
+export interface PlaybackStateI {
     track_window: {
         current_track: TrackI | null
     },

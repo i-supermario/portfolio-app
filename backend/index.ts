@@ -1,27 +1,23 @@
 import fastify from 'fastify'
 import { configDotenv } from "dotenv"
 import cors from "@fastify/cors"
+import { IHeaders, IQuerystring, IReply } from './types.js'
+import { getAccessToken, setAccessToken } from './utils.js'
+
 
 configDotenv()
-const server = fastify()
+const server = fastify({
+  logger: true
+})
 await server.register(cors)
 
-let spotifyAccessToken = ""
 let refreshToken = ""
 
-interface IQuerystring {
-  code: string;
-}
+// extra space added when setting NODE_ENV 
+const ENV = process.env.NODE_ENV?.trim()
+const PORT = ENV === `development` ? 8080 : 10000
+const HOST = ENV === `development` ? 'localhost' : '0.0.0.0' 
 
-interface IHeaders {
-  'h-Custom': string;
-}
-
-interface IReply {
-  200: { success: boolean } | { access_token: string } | { refresh_token: string }
-  302: { url: string };
-  '4xx': { error: string };
-}
 
 server.get('/', async (request, reply) => {
   reply.send({"Message": "Connected to backend"})
@@ -37,7 +33,7 @@ server.get('/auth/login', async (req, res)=> {
   let state = "randomString"
    
   if(refreshToken){
-    console.log("Using refresh token")
+
     const url = "https://accounts.spotify.com/api/token";
 
     let authOptions = {
@@ -52,24 +48,23 @@ server.get('/auth/login', async (req, res)=> {
       }),
       json: true
     };
+    
     const response = await fetch(url, authOptions);
     const responseJson = await response.json();
-    spotifyAccessToken = responseJson.access_token
+    setAccessToken(responseJson.access_token)
 
     if(response.status == 200){
-      res.status(200).send({"success":true, access_token: spotifyAccessToken, refresh_token: refreshToken }).redirect("/")
+      res.status(200).send({"success":true}).redirect("http://localhost:5173/music")
     }
     res.send(400).send({"success": false})
 
   }
   else{
-    console.log("Using authorization")
     let authQueryParams = new URLSearchParams({
       response_type: "code",
       client_id: process.env.SPOTIFY_CLIENT_ID as string,
       scope: scope,
-      redirect_uri: "https://portfolio-backend-yb78.onrender.com/auth/callback",
-      // redirect_uri: 'http://localhost:8080/auth/callback',
+      redirect_uri: ENV == 'development' ? `http://localhost:${PORT}/auth/callback` : "https://portfolio-backend-yb78.onrender.com/auth/callback",
       state: state
     })
   
@@ -97,8 +92,7 @@ server.get<{
     },
     body: new URLSearchParams({
       code: code,
-      redirect_uri: 'https://portfolio-backend-yb78.onrender.com/auth/callback',
-      // redirect_uri: 'http://localhost:8080/auth/callback',
+      redirect_uri: ENV == 'development' ? `http://localhost:${PORT}/auth/callback` : "https://portfolio-backend-yb78.onrender.com/auth/callback",
       grant_type: 'authorization_code',
     }),
   };
@@ -106,25 +100,32 @@ server.get<{
   try {
     const response = await fetch('https://accounts.spotify.com/api/token', authOptions);
     if (response.ok) {
+
       const body = await response.json()
-      spotifyAccessToken = body.access_token as string
+      setAccessToken(body.access_token as string)
       refreshToken = body.refresh_token as string
        
-      console.log(spotifyAccessToken)
-      res.status(200).send({"success":true, access_token: spotifyAccessToken, refresh_token: refreshToken }).redirect("/")
+      res.status(200).send({"success":true}).redirect("http://localhost:5173/music")
     }
+
     res.status(400).send({"error":"Try Catch Exception"})
-  } catch (error) {
+  } 
+  catch (error) {
+
     console.error('Error:', error);
     res.status(400).send({"error":error as string});
+
   }
 });
 
 server.get<{
   Reply: IReply
-}>("/auth/token", async (req, res) => res.status(200).send({"access_token":spotifyAccessToken}))
+}>("/auth/token", async (req, res) => res.status(200).send({"access_token":getAccessToken()}))
 
-server.listen(10000, '0.0.0.0', (err, address) => {
+server.listen({
+    port: PORT,
+    host: HOST
+  },(err, address) => {
   if (err) {
     console.error(err)
   }
