@@ -1,4 +1,4 @@
-import { AccordionButton, AccordionItem, AccordionPanel, Flex, ListItem, Text, UnorderedList } from "@chakra-ui/react";
+import { AccordionButton, AccordionItem, AccordionPanel, Box, Flex, ListItem, Text, UnorderedList } from "@chakra-ui/react";
 
 interface AppProps{
     CompanyName : string
@@ -15,8 +15,11 @@ export default function Experience(props: AppProps){
         <>
             <AccordionItem border="0" _selected={{border:"0"}}>
                 <AccordionButton >
-                    <Flex width="inherit" justifyContent="space-between">
-                        <Text>{props.CompanyName}, {props.position}</Text>
+                    <Flex direction={{base:'column',sm:'row'}} width="inherit" justifyContent="space-between">
+                        <Box>
+                            <Text textAlign={{base:"center", sm:"start"}}>{props.CompanyName}</Text>
+                            <Text>{props.position}</Text>
+                        </Box>
                         <Text>{props.from} - {props.to}</Text>
                     </Flex>
                 </AccordionButton>

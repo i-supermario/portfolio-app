@@ -3,32 +3,13 @@ import Footer from "../layouts/footer";
 import Header from "../layouts/header";
 import ProjectList from "../components/projectlist";
 
-const containerStyle = {
-    padding: "0 0 0 0",
-    minWidth: "100vw",
-    zIndex: "0",
-    display: "flex",
-    flexDirection: "column",
-  }
-
-const innerContainerStyle = {
-    minWidth:"100%",
-    backgroundColor:"blackAlpha.900",
-    color:"beige", 
-    padding:"120px 150px 0 150px",  //padding added to position content visiblity
-    overflowX:"auto",
-    display:"flex",
-    flexDirection:"column",
-    rowGap:"5px"
-
-}
 
 export default function Projects(){
     return(
         <>
-            <Container sx={containerStyle}>
+            <Container minWidth={"100vw"} padding={{base:'0'}}>
                 <Header/>
-                <Container sx={innerContainerStyle}>
+                <Container minWidth={"100vw"} padding={{base:'120px 20px 0 20px',sm:'120px 150px 0 150px'}} color="beige" backgroundColor="blackAlpha.900">
                     <Text as="samp" fontSize="7xl" >projects</Text>
                     <Divider orientation="horizontal"/>
                     <ProjectList/>

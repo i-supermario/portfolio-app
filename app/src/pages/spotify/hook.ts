@@ -1,8 +1,7 @@
 import { useEffect, useState } from 'react';
 import { WindowWithSpotifyI, PlayerI, PlaybackStateI, SpotifyHook,UseSpotifyParams  } from "./interface"
 
-const ENV = 'DEV'
-const URL = ENV == 'DEV' ? "http://localhost:8080" : "https://portfolio-backend-yb78.onrender.com"
+const URL = "https://portfolio-backend-yb78.onrender.com"
 
 export const useSpotify = ({
     loggedIn,

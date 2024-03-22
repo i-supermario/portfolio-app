@@ -4,10 +4,10 @@ import Experience from "./experience";
 export default function ExperienceList(){
     return(
         <>
-            <Container display="flex" flexDirection="column" rowGap="10px" padding="0" margin="0">
+            <Container display="flex" flexDirection="column" rowGap="10px" padding={{base:"0"}} margin="0">
                 <Text as="em" fontSize="2xl" >Experiences</Text>
-                <Divider minWidth="650px"/>
-                <Accordion minWidth="650px" allowToggle>
+                <Divider minWidth={{base:'350px',sm:'650px'}}/>
+                <Accordion minWidth={{base:'350px',sm:'650px'}} allowToggle>
                     <Experience 
                         CompanyName="Reach Technologies"
                         position="Software Development Intern"
@@ -28,7 +28,7 @@ export default function ExperienceList(){
                     />
                     <Experience 
                         CompanyName="Kisan Forum Pvt Ltd"
-                        position=" Software Developer Intern"
+                        position=" Software Developement Intern"
                         from="Feb 2020"
                         to="May 2020"
                         description="Developed REST API endpoints in Django Framework with PostgreSQL database and Shopify API, conducted API testing using Postman;

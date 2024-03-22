@@ -5,7 +5,7 @@ export default function ProjectList(){
     return(
         <>
             <Grid
-                templateColumns="repeat(2,1fr)"
+                templateColumns={{base:'',sm:"repeat(2,1fr)"}}
                 templateRows="repeat(2,1fr)"
                 rowGap="20"
                 columnGap="40"

@@ -1,7 +1,7 @@
 import { Container, Flex, Link, Text } from "@chakra-ui/react";
 
 const flexStyle = {
-    minWidth:"100%", 
+    minWidth:"100vw", 
     justifyContent:"space-between",
     // columnGap:"20px",
     // padding: "7",

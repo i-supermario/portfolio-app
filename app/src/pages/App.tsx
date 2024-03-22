@@ -6,25 +6,23 @@ import Intro from "../components/introduction"
 import Upcoming from "../components/upcoming"
 import ExperienceList from "../components/experiencelist"
 
-
-
-const containerStyle = {
-  padding: "0 0 0 0",
-  minWidth: "100vw",
-  zIndex: "0",
-  display: "flex",
-  flexDirection: "column",
-}
-
 export default function App() {
   return (
     <>
-      <Container sx={containerStyle} >
+      <Container 
+        minWidth={"100vw"}
+        padding={"0"} 
+      >
         <Header />
-        <Container display="flex" flexDirection="column" minWidth="100%" backgroundColor="blackAlpha.900" color="beige" 
-        padding="120px 150px 120px 150px"  //padding added to position content visiblity
-        rowGap="50px"
-        overflowX="auto"
+        <Container 
+          display="flex" 
+          flexDirection="column" 
+          minWidth="100%" 
+          backgroundColor="blackAlpha.900" 
+          color="beige" 
+          padding={{base:'120px 20px 150px 20px',sm:"120px 150px 120px 150px"}}  //padding added to position content visiblity
+          rowGap="50px"
+          overflowX="auto"
         >
           <Intro/>
           {/* <br/>
