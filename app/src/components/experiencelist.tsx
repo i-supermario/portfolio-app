@@ -8,6 +8,21 @@ export default function ExperienceList(){
                 <Text as="em" fontSize="2xl" >Experiences</Text>
                 <Divider minWidth={{base:'350px',sm:'650px'}}/>
                 <Accordion minWidth={{base:'350px',sm:'650px'}} allowToggle>
+                    <Experience
+                        CompanyName="UniGiig"
+                        position="Software Development Engineer Intern"
+                        from="May 2024"
+                        to="Present"
+                        description="Creating MongoDB aggregation pipelines to generate marketing data leading to increase in user conversion by 5%;Developed reminders feature to improve gig completion rate by 9% using Firebase Cloud Messaging and Cron utilities;Conducted thorough user testing and code reviews to maintain code quality and functionality;Built an optimized and responsive website and mobile application using React, React Native, Redux, TypeScript & Tailwind CSS;Connected forms on company website using Google App Scripts to store user data in Google Sheets, reducing manual effort"
+
+                    />
+                    <Experience
+                        CompanyName="Flow"
+                        position="Full Stack Developer Intern"
+                        from="Feb 2024"
+                        to="May 2024"
+                        description="Continuous development, debugging and testing of application created using Electron.js, React.js, HTML, CSS, and Material-UI;Creating third-party integrations with platforms like WhatsApp, Telegram and LinkedIn to improve user experience;Improved readability and codebase quality by 2% with lazy loading, code splitting and eliminating redundancies"
+                    />
                     <Experience 
                         CompanyName="Reach Technologies"
                         position="Software Development Intern"

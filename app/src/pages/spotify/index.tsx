@@ -60,9 +60,17 @@ export default function Music(){
             <Header/>
             {
               !loggedIn ? 
-              <Button colorScheme='purple' onClick={()=>createSpotifyInstance()}>
-                <a href={`${URL}/auth/login`} target="_blank">Login</a>
-              </Button>
+              <Box
+                display="flex"
+                flexDirection="column"
+                alignItems="center"
+                gap="10"
+              >
+                <Button colorScheme='purple' onClick={()=>createSpotifyInstance()}>
+                  <a href={`${URL}/auth/login`} target="_blank">Login</a>
+                </Button>
+                <Text fontSize="small" color="whatsapp.100" >Disclaimer: The login attempt will be initially slow</Text>
+              </Box>
               :
               <>
                 <Box 
