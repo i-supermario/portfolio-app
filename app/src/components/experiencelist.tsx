@@ -9,10 +9,18 @@ export default function ExperienceList(){
                 <Divider minWidth={{base:'350px',sm:'650px'}}/>
                 <Accordion minWidth={{base:'350px',sm:'650px'}} allowToggle>
                     <Experience
+                        CompanyName="FlairX"
+                        position="Software Development Engineer"
+                        from="August 2024"
+                        to="Present"
+                        description="Spearheading the development of an Interview-as-a-Service application with Node.js, React.js, TypeScript & Tailwind CSS;Engineered key components such as a File Dropbox and Multi-page Form, implementing design patterns like Providers, Compound Components, and Custom Hooks, while optimizing performance through techniques like useMemo, useCallback, lazy loading, bundle size reduction, and code splitting."
+
+                    />
+                    <Experience
                         CompanyName="UniGiig"
                         position="Software Development Engineer Intern"
                         from="May 2024"
-                        to="Present"
+                        to="July 2024"
                         description="Creating MongoDB aggregation pipelines to generate marketing data leading to increase in user conversion by 5%;Developed reminders feature to improve gig completion rate by 9% using Firebase Cloud Messaging and Cron utilities;Conducted thorough user testing and code reviews to maintain code quality and functionality;Built an optimized and responsive website and mobile application using React, React Native, Redux, TypeScript & Tailwind CSS;Connected forms on company website using Google App Scripts to store user data in Google Sheets, reducing manual effort"
 
                     />
