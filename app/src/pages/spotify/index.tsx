@@ -82,7 +82,7 @@ export default function Music(){
                   rounded="10px"
                 >
                   <Container display="flex" flexDirection="column" rowGap="10px" alignItems="center">
-                      <Image rounded="10px" src={current_track?.album.images[0].url} />
+                      <Image boxSize="36" rounded="10px" src={current_track?.album.images[0].url} />
 
                       <Box display="flex" justifyContent="center" alignItems="center" flexDirection="column" padding="5px" color="beige">
                           <Text className="now-playing__name">{
